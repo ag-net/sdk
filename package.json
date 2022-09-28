@@ -13,7 +13,7 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "clean": "rimraf dist",
-    "build": "npm clean && tsc -p tsconfig-build.json"
+    "build": "npm run clean && tsc -p tsconfig-build.json && tsc-alias"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/ag-net/sdk#readme",
   "devDependencies": {
+    "@types/superagent": "^4.1.15",
     "@typescript-eslint/eslint-plugin": "^4.28.1",
     "eslint": "^7.29.0",
     "eslint-config-standard-with-typescript": "^20.0.0",
@@ -42,10 +43,13 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
-    "@polkadot/api": "^9.4.2",
-    "@polkadot/util": "^10.1.9",
-    "@polkadot/util-crypto": "^10.1.9",
+    "@polkadot/api": "9.4.1",
+    "@polkadot/keyring": "10.1.8",
+    "@polkadot/util": "10.1.8",
+    "@polkadot/util-crypto": "10.1.8",
     "@substrate/txwrapper-core": "^4.0.0",
-    "git-commit-msg-linter": "^4.2.1"
+    "bignumber.js": "^9.1.0",
+    "git-commit-msg-linter": "^4.2.1",
+    "superagent": "^8.0.0"
   }
 }

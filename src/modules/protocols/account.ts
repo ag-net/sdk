@@ -19,5 +19,5 @@ export interface IAccount {
   
     getNonce: () => Promise<number>
   
-    sign: (tx: UnsignedTransaction) => `0x${string}`
+    sign: (tx: string) => `0x${string}`
 }

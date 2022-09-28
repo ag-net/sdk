@@ -22,11 +22,11 @@ export const KNOWN_CHAIN_PROPERTIES = {
 /**
  * Options for the `getRegistry` function.
  */
-interface GetRegistryOpts extends GetRegistryOptsCore {
+export interface GetRegistryOpts extends GetRegistryOptsCore {
   specName: keyof typeof KNOWN_CHAIN_PROPERTIES
 }
 
-export interface RegistryHandler {
+export interface IRegistry {
   getRegistry: ({
     specName,
     chainName,

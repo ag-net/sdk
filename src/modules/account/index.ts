@@ -1,9 +1,10 @@
 import { IAccount } from "../protocols";
 import { Keyring } from '@polkadot/api'
 import { mnemonicGenerate, mnemonicValidate, mnemonicToMiniSecret } from '@polkadot/util-crypto'
-import { KeyringPair, deriveAddress, TypeRegistry, UnsignedTransaction } from '@substrate/txwrapper-core'
+import { KeyringPair, deriveAddress, TypeRegistry } from '@substrate/txwrapper-core'
 import { u8aToHex, hexToU8a } from '@polkadot/util'
 import { EXTRINSIC_VERSION } from '@polkadot/types/extrinsic/v4/Extrinsic'
+import { IRpc } from "@/infra/protocols/rpc";
 
 export class Account implements IAccount {
     private readonly keyring = new Keyring({ type: 'sr25519' })
@@ -13,6 +14,7 @@ export class Account implements IAccount {
 
     constructor (
         private readonly registry: TypeRegistry,
+        private readonly rpc: IRpc
     ) {}
 
     createMnemonic () {
@@ -21,15 +23,15 @@ export class Account implements IAccount {
     }
 
     setMnemonic (phrase: string) {
-        if (!mnemonicValidate(phrase)) {
-          throw new Error('Invalid mnemonic')
-        }
+        // if (!mnemonicValidate(phrase)) {
+        //   throw new Error('Invalid mnemonic')
+        // }
         this.mnemonic = phrase
     }
 
 
   setSeed (seed: string) {
-    if (seed.substr(0,2) !== '0x' || seed.length !== 66) throw new Error('Invalid seed')
+    if (seed.substring(0,2) !== '0x' || seed.length !== 66) throw new Error('Invalid seed')
     this.seed = hexToU8a(seed)
   }
 
@@ -42,10 +44,10 @@ export class Account implements IAccount {
   }
 
   enableAccountByMnemonic () {
-    if (!this.mnemonic || this.mnemonic.length < 10) {
-      throw new Error('Mnemonic not instantiate')
-    }
-    this.account = this.keyring.addFromUri(this.mnemonic)
+    // if (!this.mnemonic || this.mnemonic.length < 10) {
+    //   throw new Error('Mnemonic not instantiate')
+    // }
+    this.account = this.keyring.addFromUri(this.mnemonic ?? "")
   }
 
   enableAccountBySeed () {
@@ -64,10 +66,15 @@ export class Account implements IAccount {
   }
 
   async getNonce (): Promise<number> {
-    throw new Error('Not implemented')
+    if (!this.account) throw new Error('Account not instantiate')
+    const nonce = await this.rpc.call({
+      method: 'system_accountNextIndex',
+      params: [this.publicKey()]
+    })
+    return nonce
   }
 
-  sign (tx: UnsignedTransaction) {
+  sign (tx: string) {
     if (!this.account) throw new Error('Account not instantiate')
     const { signature } = this.registry.createType('ExtrinsicPayload', tx, {
       version: EXTRINSIC_VERSION
