@@ -44,5 +44,5 @@ Returns the next transaction nonce of account instantiated on sdk
 
 ## Sign
 
-``` sign(transaction: string) ```
+``` sign(transaction: UnsignedTransaction) ```
 Returns an signature to transaction
