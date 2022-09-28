@@ -1,6 +1,6 @@
 # Balances Module
 
-Here you will find all the features related to the MØX balances
+Here you will find all the features related to balances
 
 ## Transfer
 
