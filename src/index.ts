@@ -5,6 +5,7 @@ import { Node } from "./modules/node"
 import { Registry } from "./modules/registry"
 import { createMetadata } from "@substrate/txwrapper-core"
 import { Transaction } from "./modules/transaction"
+import { Agreement } from "./modules/agreement"
 export default async ({node_ws, node_rpc}: {
     node_ws: string
     node_rpc: string
@@ -29,6 +30,7 @@ export default async ({node_ws, node_rpc}: {
     const account = new Account(registry, rpc)
     const transaction = new Transaction(metadataRpc, registry, node, account, runtime.specVersion, runtime.transactionVersion)
     const balances = new Balances(registry, metadataRpc, api, transaction)
+    const agreement = new Agreement(transaction, registry, metadataRpc)
 
     return {
         account,
