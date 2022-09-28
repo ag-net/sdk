@@ -35,6 +35,7 @@ export default async ({node_ws, node_rpc}: {
     return {
         account,
         transaction,
-        balances
+        balances,
+        agreement
     }
 }
