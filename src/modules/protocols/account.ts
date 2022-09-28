@@ -1,3 +1,5 @@
+import { UnsignedTransaction } from "@substrate/txwrapper-core"
+
 export interface IAccount {
     createMnemonic: () => string
 
@@ -17,5 +19,5 @@ export interface IAccount {
   
     getNonce: () => Promise<number>
   
-    sign: (tx: string) => `0x${string}`
+    sign: (tx: UnsignedTransaction) => `0x${string}`
 }
