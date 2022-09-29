@@ -23,7 +23,8 @@ export default async ({node_ws, node_rpc}: {
     node_rpc: string
 }): Promise<AgnetModules> => {
     const wsProvider = new WsProvider(node_ws)
-    const api = await ApiPromise.create({ provider: wsProvider })
+    const api = await ApiPromise.create({ provider: wsProvider, throwOnConnect: true })
+    if (!api.isConnected) throw new Error("Connection failed")
     const rpc = new Rpc(node_rpc)
     const node = new Node(rpc)
 
