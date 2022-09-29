@@ -6,10 +6,22 @@ import { Registry } from "./modules/registry"
 import { createMetadata } from "@substrate/txwrapper-core"
 import { Transaction } from "./modules/transaction"
 import { Agreement } from "./modules/agreement"
+import { IAccount } from "./modules/protocols"
+import { ITransaction } from "./modules/protocols/transaction"
+import { IBalance } from "./modules/protocols/balance"
+import { IAgreement } from "./modules/protocols/agreement"
+
+export interface AgnetModules {
+    account: IAccount,
+    transaction: ITransaction,
+    balances: IBalance,
+    agreement: IAgreement
+}
+
 export default async ({node_ws, node_rpc}: {
     node_ws: string
     node_rpc: string
-}) => {
+}): Promise<AgnetModules> => {
     const wsProvider = new WsProvider(node_ws)
     const api = await ApiPromise.create({ provider: wsProvider })
     const rpc = new Rpc(node_rpc)
