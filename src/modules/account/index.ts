@@ -23,9 +23,9 @@ export class Account implements IAccount {
     }
 
     setMnemonic (phrase: string) {
-        // if (!mnemonicValidate(phrase)) {
-        //   throw new Error('Invalid mnemonic')
-        // }
+        if (!mnemonicValidate(phrase)) {
+          throw new Error('Invalid mnemonic')
+        }
         this.mnemonic = phrase
     }
 
@@ -44,9 +44,9 @@ export class Account implements IAccount {
   }
 
   enableAccountByMnemonic () {
-    // if (!this.mnemonic || this.mnemonic.length < 10) {
-    //   throw new Error('Mnemonic not instantiate')
-    // }
+    if (!this.mnemonic || this.mnemonic.length < 10) {
+      throw new Error('Mnemonic not instantiate')
+    }
     this.account = this.keyring.addFromUri(this.mnemonic ?? "")
   }
 

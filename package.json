@@ -1,5 +1,5 @@
 {
-  "name": "dan-sdk",
+  "name": "@agnet/sdk",
   "version": "0.0.1",
   "description": "SDK to interact with DAN protocol",
   "main": "dist/index.js",
