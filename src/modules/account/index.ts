@@ -2,7 +2,7 @@ import { IAccount } from "../protocols";
 import { Keyring } from '@polkadot/api'
 import { mnemonicGenerate, mnemonicValidate, mnemonicToMiniSecret } from '@polkadot/util-crypto'
 import { KeyringPair, deriveAddress, TypeRegistry } from '@substrate/txwrapper-core'
-import { u8aToHex, hexToU8a } from '@polkadot/util'
+import { u8aToHex, hexToU8a, stringToU8a } from '@polkadot/util'
 import { EXTRINSIC_VERSION } from '@polkadot/types/extrinsic/v4/Extrinsic'
 import { IRpc } from "@/infra/protocols/rpc";
 
@@ -84,13 +84,18 @@ export class Account implements IAccount {
 
   simpleSign (payload: string) {
     if (!this.account) throw new Error('Account not instantiate')
-    const signature = this.account.sign(payload)
-    return u8aToHex(signature)
+    const message = stringToU8a(payload)
+    const signature = this.account.sign(message)
+    return {signature: u8aToHex(signature), hexPk: u8aToHex(this.account.publicKey)}
   }
 
-  simpleVerify (publicKey: string, payload: string, signature: string) {
+  simpleVerify (publicKey: `0x${string}`, payload: string, signature: `0x${string}`) {
     if (!this.account) throw new Error('Account not instantiate')
-    const valid = this.account.verify(payload, hexToU8a(signature), publicKey)
+    const valid = this.account.verify(stringToU8a(payload), hexToU8a(signature), hexToU8a(publicKey))
     return valid
+  }
+
+  deriveHexPk(publicKey: `0x${string}`) {
+    return deriveAddress(hexToU8a(publicKey), this.registry.chainSS58 ?? 42)
   }
 }

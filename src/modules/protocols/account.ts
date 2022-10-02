@@ -21,7 +21,9 @@ export interface IAccount {
   
     sign: (tx: string) => `0x${string}`
 
-    simpleSign(payload: string): `0x${string}`
+    simpleSign(payload: string): { signature: `0x${string}`; hexPk: `0x${string}`; }
 
-    simpleVerify(publicKey: string, payload: string, signature: string): boolean
+    simpleVerify(publicKey: `0x${string}`, payload: string, signature: `0x${string}`): boolean
+
+    deriveHexPk(publicKey: `0x${string}`): string
 }
