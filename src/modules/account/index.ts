@@ -81,4 +81,16 @@ export class Account implements IAccount {
     }).sign(this.account)
     return signature as `0x${string}`
   }
+
+  simpleSign (payload: string) {
+    if (!this.account) throw new Error('Account not instantiate')
+    const signature = this.account.sign(payload)
+    return u8aToHex(signature)
+  }
+
+  simpleVerify (publicKey: string, payload: string, signature: string) {
+    if (!this.account) throw new Error('Account not instantiate')
+    const valid = this.account.verify(payload, hexToU8a(signature), publicKey)
+    return valid
+  }
 }
