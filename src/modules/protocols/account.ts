@@ -20,4 +20,8 @@ export interface IAccount {
     getNonce: () => Promise<number>
   
     sign: (tx: string) => `0x${string}`
+
+    simpleSign(payload: string): `0x${string}`
+
+    simpleVerify(publicKey: string, payload: string, signature: string): boolean
 }

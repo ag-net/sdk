@@ -1,6 +1,6 @@
 {
   "name": "agnet_sdk",
-  "version": "0.0.6",
+  "version": "0.0.7b",
   "description": "SDK to interact with DAN protocol",
   "main": "dist/index.js",
   "files": [
