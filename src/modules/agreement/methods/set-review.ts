@@ -18,7 +18,7 @@ export function setReviewAgreement(args: AgrementArgs, info: BaseTxInfo, options
     return defineMethod({
         method: {
             args,
-            name: 'set_review',
+            name: 'setReview',
             pallet: 'agreements'
         },
         ...info
