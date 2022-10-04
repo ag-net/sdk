@@ -10,7 +10,7 @@ interface AgrementArgs extends Args {
         /**
          * The agreement id.
          */
-        agg_id: string
+         aggId: string
          
 }
 

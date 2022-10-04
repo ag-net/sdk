@@ -35,7 +35,7 @@ export class Agreement implements IAgreement {
     async cancel(id: `0x${string}`, era: number): Promise<UnsignedTransaction> {
         const transactionIfo = await this.transaction.constructInfo(era)
         const utx = cancelAgreement({
-            agg_id: id
+            aggId: id
         }, transactionIfo,
         {
             metadataRpc: this.metadataRpc,
@@ -47,7 +47,7 @@ export class Agreement implements IAgreement {
     async unsign(id: `0x${string}`, era: number): Promise<UnsignedTransaction> {
         const transactionIfo = await this.transaction.constructInfo(era)
         const utx = unsignAgreement({
-            agg_id: id
+            aggId: id
         }, transactionIfo,
         {
             metadataRpc: this.metadataRpc,
@@ -59,7 +59,7 @@ export class Agreement implements IAgreement {
     async sign(id: `0x${string}`, era: number): Promise<UnsignedTransaction> {
         const transactionIfo = await this.transaction.constructInfo(era)
         const utx = signAgreement({
-            agg_id: id
+            aggId: id
         }, transactionIfo,
         {
             metadataRpc: this.metadataRpc,
@@ -71,7 +71,7 @@ export class Agreement implements IAgreement {
     async setReview(id: `0x${string}`, era: number): Promise<UnsignedTransaction> {
         const transactionIfo = await this.transaction.constructInfo(era)
         const utx = setReviewAgreement({
-            agg_id: id
+            aggId: id
         }, transactionIfo,
         {
             metadataRpc: this.metadataRpc,
@@ -83,7 +83,7 @@ export class Agreement implements IAgreement {
     async accept(id: `0x${string}`, era: number): Promise<UnsignedTransaction> {
         const transactionIfo = await this.transaction.constructInfo(era)
         const utx = acceptAgreement({
-            agg_id: id
+            aggId: id
         }, transactionIfo,
         {
             metadataRpc: this.metadataRpc,
